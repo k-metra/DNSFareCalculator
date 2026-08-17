@@ -1,120 +1,70 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import { useEffect, useMemo, useState } from 'react'
+import Header from './components/header.tsx';
+import Dropdown from './components/dropdown.tsx';
+import { routes } from './data/routes.ts';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [selectedRoute, setSelectedRoute] = useState<string>();
+  const [selectedStartingPoint, setSelectedStartingPoint] = useState<string>();
+  const [selectedEndingPoint, setSelectedEndingPoint] = useState<string>();
+
+  const routeOptions = useMemo(() => {
+    return routes.map((route) => ({
+      value: route.id,
+      label: route.name,
+    }));
+  }, []);
+
+  const stops = useMemo(() => {
+    if (!selectedRoute) return [{ value: "", label: "" }];
+
+    return (routes.find((route) => route.id === selectedRoute)?.stops.map((stop) => ({ value: stop.id, label: stop.name }))) ?? [];
+  }, [selectedRoute]);
+
+  useEffect(() => {
+    setSelectedEndingPoint("");
+    setSelectedStartingPoint("");
+  }, [selectedRoute])
 
   return (
     <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+      <div className="min-h-screen bg-background">
+        <Header />
 
-      <div className="ticks"></div>
+        <main className="m-5 flex flex-1 items-center justify-center">
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+          <div className="flex flex-col items-center justify-center gap-4 rounded-md border-border border py-5 px-8 shadow-md min-w-240">
+              <h2 className="text-lg font-main font-semibold text-white">Route Info</h2>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
+              <fieldset className="flex min-w-full border-0 p-0 gap-2">
+                <Dropdown
+                    label="Route Name"
+                    value={selectedRoute}
+                    options={routeOptions}
+                    onChange={setSelectedRoute}    
+                />  
+
+                <Dropdown
+                  label="Start"
+                  value={selectedStartingPoint}
+                  options={stops}
+                  disabled={selectedRoute == null}
+                  onChange={setSelectedStartingPoint}
+                />
+
+                <Dropdown 
+                  label="End"
+                  value={selectedEndingPoint}
+                  options={stops}
+                  disabled={selectedRoute ==null}
+                  onChange={setSelectedEndingPoint}
+                />
+              </fieldset>
+          </div>
+        </main>
+
+      </div>
+
     </>
   )
 }
