@@ -3,16 +3,46 @@ export const routes = [
         id: "malolos-bulakan",
         name: "Malolos - Bulakan",
         stops: [
-            "Bagumbayan/San Jose",
-            "Maysantol",
-            "San Nicolas",
-            "Pitpitan",
-            "Mambog",
-            "Matimbo",
-            "Panasahan",
-            "Bagna",
-            "Atlag",
-            "San Juan/Sto. Rosario"
+            {
+                id: "bagumbayan-san-jose",
+                name: "Bagumbayan/San Jose",
+            },
+            {
+                id: "maysantol",
+                name: "Maysantol",
+            },
+            {
+                id: "san-nicolas",
+                name: "San Nicolas",
+            },
+            {
+                id: "pitpitan",
+                name: "Pitpitan",
+            },
+            {
+                id: "mambog",
+                name: "Mambog",
+            },
+            {
+                id: "matimbo",
+                name: "Matimbo",
+            },
+            {
+                id: "panasahan",
+                name: "Panasahan",
+            },
+            {
+                id: "bagna",
+                name: "Bagna",
+            },
+            {
+                id: "atlag",
+                name: "Atlag",
+            },
+            {
+                id: "san-juan-sto-rosario",
+                name: "San Juan/Sto. Rosario",
+            },
         ],
     },
 
@@ -20,9 +50,18 @@ export const routes = [
         id: "guiguinto-bulakan",
         name: "Guiguinto - Bulakan",
         stops: [
-            "Bagumbayan/San Jose",
-            "Matungao",
-            "Tuktukan"
+            {
+                id: "bagumbayan-san-jose",
+                name: "Bagumbayan/San Jose",
+            },
+            {
+                id: "matungao",
+                name: "Matungao",
+            },
+            {
+                id: "tuktukan",
+                name: "Tuktukan",
+            },
         ],
     },
 
@@ -30,11 +69,26 @@ export const routes = [
         id: "balagtas-bulakan",
         name: "Balagtas - Bulakan",
         stops: [
-            "Bagumbayan/San Jose",
-            "Matungao",
-            "Panginay Guiguinto",
-            "Panginay Balagtas",
-            "Wawa"
+            {
+                id: "bagumbayan-san-jose",
+                name: "Bagumbayan/San Jose",
+            },
+            {
+                id: "matungao",
+                name: "Matungao",
+            },
+            {
+                id: "panginay-guiguinto",
+                name: "Panginay Guiguinto",
+            },
+            {
+                id: "panginay-balagtas",
+                name: "Panginay Balagtas",
+            },
+            {
+                id: "wawa",
+                name: "Wawa",
+            },
         ],
     },
 ];
