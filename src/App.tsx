@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import Header from './components/header.tsx';
 import Dropdown from './components/dropdown.tsx';
 import { routes } from './data/routes.ts';
+import Value from './components/value.tsx';
 
 function App() {
   const [selectedRoute, setSelectedRoute] = useState<string>();
@@ -10,6 +11,10 @@ function App() {
   const [numberOfPassengers, setNumberOfPassengers] = useState<string>();
   const [passengerType, setPassengerType] = useState("regular");
   const [bill, setBill] = useState<string>();
+
+  const [totalFare, setTotalFare] = useState<string>();
+  const [farePerPerson, setFarePerPerson] = useState<string>();
+  const [change, setChange] = useState<string>();
 
   const routeOptions = useMemo(() => {
     return routes.map((route) => ({
@@ -106,6 +111,25 @@ function App() {
                   }
                   value={bill}
                   onChange={(value) => setBill(value)}
+                />
+              </fieldset>
+
+              <h2 className="text-white font-semibold text-lg font-main">Total Fare Calculations</h2>
+
+              <fieldset className="flex w-full p-0 gap-2 border-0">
+                <Value
+                  label="FARE PER PERSON"
+                  value={farePerPerson}
+                />
+
+                <Value
+                  label="TOTAL FARE"
+                  value={totalFare}
+                />
+
+                <Value
+                  label="CHANGE"
+                  value={change}
                 />
               </fieldset>
           </div>
