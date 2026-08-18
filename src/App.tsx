@@ -3,6 +3,9 @@ import Header from './components/header.tsx';
 import Dropdown from './components/dropdown.tsx';
 import { routes } from './data/routes.ts';
 import Value from './components/value.tsx';
+import calculateFare from '@utils/calculateFare.ts';
+
+import { type PassengerType } from "./utils/types";
 
 function App() {
   const [selectedRoute, setSelectedRoute] = useState<string>();
@@ -33,6 +36,26 @@ function App() {
     setSelectedEndingPoint("");
     setSelectedStartingPoint("");
   }, [selectedRoute])
+
+  useEffect(() => {
+    if (!selectedRoute || !selectedStartingPoint || !selectedEndingPoint || !passengerType || !bill) {
+      setFarePerPerson(undefined);
+      setChange(undefined);
+      setTotalFare(undefined);
+
+      return;
+    }
+
+    const startingIndex = routes.find((route) => route.id === selectedRoute)?.stops.findIndex((stop) => stop.id === selectedStartingPoint);
+    const endingIndex = routes.find((route) => route.id === selectedRoute)?.stops.findIndex((stop) => stop.id === selectedEndingPoint);
+
+    const { farePerPerson, change, totalFare } = calculateFare(passengerType as PassengerType, Number(numberOfPassengers)!, Number(bill)!, startingIndex!, endingIndex!);
+
+    setFarePerPerson("₱" + String(farePerPerson));
+    setChange("₱" + String(change));
+    setTotalFare("₱" + String(totalFare));
+
+  }, [selectedRoute, selectedStartingPoint, numberOfPassengers, selectedEndingPoint, passengerType, bill]);
 
   return (
     <>
