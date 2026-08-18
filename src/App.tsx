@@ -7,6 +7,9 @@ function App() {
   const [selectedRoute, setSelectedRoute] = useState<string>();
   const [selectedStartingPoint, setSelectedStartingPoint] = useState<string>();
   const [selectedEndingPoint, setSelectedEndingPoint] = useState<string>();
+  const [numberOfPassengers, setNumberOfPassengers] = useState<string>();
+  const [passengerType, setPassengerType] = useState("regular");
+  const [bill, setBill] = useState<string>();
 
   const routeOptions = useMemo(() => {
     return routes.map((route) => ({
@@ -58,6 +61,51 @@ function App() {
                   options={stops}
                   disabled={selectedRoute ==null}
                   onChange={setSelectedEndingPoint}
+                />
+              </fieldset>
+
+              <h2 className="text-lg font-main font-semibold text-white">Passenger Info</h2>
+
+              <fieldset className="flex min-w-full border-0 p-0 gap-2">
+
+                <Dropdown
+                    label="No. of Passengers"
+                    value={numberOfPassengers}
+                    options={
+                      [
+                        {value: "1", label: "1"},
+                        {value: "2", label: "2"},
+                        {value: "3", label: "3"},
+                        {value: "4", label: "4"},
+                        {value: "5", label: "5"}
+                      ]
+                    }
+                    onChange={(value) => setNumberOfPassengers(value)}
+                />
+
+                <Dropdown
+                  label="Passenger Type"
+                  options={
+                    [
+                      {value: "regular", label: "Regular"},
+                      {value: "senior", label: "Senior"}
+                    ]
+                  }
+                  value={passengerType}
+                  onChange={(value) => setPassengerType(value)}
+                />
+
+                <Dropdown
+                  label="Bill"
+                  options={
+                    [
+                      { value: "20", label: "₱20" },
+                      { value: "50", label: "₱50" },
+                      { value: "100", label: "₱100" }
+                    ]
+                  }
+                  value={bill}
+                  onChange={(value) => setBill(value)}
                 />
               </fieldset>
           </div>
