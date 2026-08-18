@@ -46,12 +46,12 @@ export default function Dropdown({ label, value, options, onChange, disabled = f
                 <span
                     className={`
                         font-main
-                        absolute left-3 px-1
+                        absolute left-3 px-2
                         bg-background
                         text-sm
                         transition-all
                         ${value || open
-                            ? "-top-2 text-blue-500"
+                            ? "-top-2.5 text-blue-500"
                             : "top-1/2 -translate-y-1/2 text-gray-400"
                         }`}
                 >{label}</span>
