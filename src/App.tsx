@@ -62,84 +62,96 @@ function App() {
       <div className="min-h-screen bg-background">
         <Header />
 
-        <main className="m-5 flex flex-1 items-center justify-center">
+        <main className="mx-auto flex w-full max-w-6xl flex-1 items-center justify-center px-3 py-4 sm:px-5 sm:py-6">
 
-          <div className="flex flex-col items-center justify-center gap-4 rounded-md border-border border py-5 px-8 shadow-md min-w-240">
+          <div className="flex w-full flex-col items-stretch justify-center gap-4 rounded-md border border-border px-4 py-5 shadow-md sm:px-6 md:px-8">
               <h2 className="text-lg font-main font-semibold text-white">Route Info</h2>
 
-              <fieldset className="flex min-w-full border-0 p-0 gap-2">
-                <Dropdown
-                    label="Route Name"
-                    value={selectedRoute}
-                    options={routeOptions}
-                    onChange={setSelectedRoute}    
-                />  
+              <fieldset className="flex w-full flex-col gap-4 border-0 p-0 md:flex-row">
+                <div className="w-full md:flex-1">
+                  <Dropdown
+                      label="Route Name"
+                      value={selectedRoute}
+                      options={routeOptions}
+                      onChange={setSelectedRoute}    
+                  />
+                </div>
 
-                <Dropdown
-                  label="Start"
-                  value={selectedStartingPoint}
-                  options={stops}
-                  disabled={selectedRoute == null}
-                  onChange={setSelectedStartingPoint}
-                />
+                <div className="w-full md:flex-1">
+                  <Dropdown
+                    label="Start"
+                    value={selectedStartingPoint}
+                    options={stops}
+                    disabled={selectedRoute == null}
+                    onChange={setSelectedStartingPoint}
+                  />
+                </div>
 
-                <Dropdown 
-                  label="End"
-                  value={selectedEndingPoint}
-                  options={stops}
-                  disabled={selectedRoute ==null}
-                  onChange={setSelectedEndingPoint}
-                />
+                <div className="w-full md:flex-1">
+                  <Dropdown 
+                    label="End"
+                    value={selectedEndingPoint}
+                    options={stops}
+                    disabled={selectedRoute == null}
+                    onChange={setSelectedEndingPoint}
+                  />
+                </div>
               </fieldset>
 
               <h2 className="text-lg font-main font-semibold text-white">Passenger Info</h2>
 
-              <fieldset className="flex min-w-full border-0 p-0 gap-2">
+              <fieldset className="flex w-full flex-col gap-4 border-0 p-0 md:flex-row">
 
-                <Dropdown
-                    label="No. of Passengers"
-                    value={numberOfPassengers}
+                <div className="w-full md:flex-1">
+                  <Dropdown
+                      label="No. of Passengers"
+                      value={numberOfPassengers}
+                      options={
+                        [
+                          {value: "1", label: "1"},
+                          {value: "2", label: "2"},
+                          {value: "3", label: "3"},
+                          {value: "4", label: "4"},
+                          {value: "5", label: "5"}
+                        ]
+                      }
+                      onChange={(value) => setNumberOfPassengers(value)}
+                  />
+                </div>
+
+                <div className="w-full md:flex-1">
+                  <Dropdown
+                    label="Passenger Type"
                     options={
                       [
-                        {value: "1", label: "1"},
-                        {value: "2", label: "2"},
-                        {value: "3", label: "3"},
-                        {value: "4", label: "4"},
-                        {value: "5", label: "5"}
+                        {value: "regular", label: "Regular"},
+                        {value: "senior", label: "Senior"}
                       ]
                     }
-                    onChange={(value) => setNumberOfPassengers(value)}
-                />
+                    value={passengerType}
+                    onChange={(value) => setPassengerType(value)}
+                  />
+                </div>
 
-                <Dropdown
-                  label="Passenger Type"
-                  options={
-                    [
-                      {value: "regular", label: "Regular"},
-                      {value: "senior", label: "Senior"}
-                    ]
-                  }
-                  value={passengerType}
-                  onChange={(value) => setPassengerType(value)}
-                />
-
-                <Dropdown
-                  label="Bill"
-                  options={
-                    [
-                      { value: "20", label: "₱20" },
-                      { value: "50", label: "₱50" },
-                      { value: "100", label: "₱100" }
-                    ]
-                  }
-                  value={bill}
-                  onChange={(value) => setBill(value)}
-                />
+                <div className="w-full md:flex-1">
+                  <Dropdown
+                    label="Bill"
+                    options={
+                      [
+                        { value: "20", label: "₱20" },
+                        { value: "50", label: "₱50" },
+                        { value: "100", label: "₱100" }
+                      ]
+                    }
+                    value={bill}
+                    onChange={(value) => setBill(value)}
+                  />
+                </div>
               </fieldset>
 
               <h2 className="text-white font-semibold text-lg font-main">Total Fare Calculations</h2>
 
-              <fieldset className="flex w-full p-0 gap-2 border-0">
+              <fieldset className="flex w-full flex-col gap-2 border-0 p-0 md:flex-row">
                 <Value
                   label="FARE PER PERSON"
                   value={farePerPerson}
