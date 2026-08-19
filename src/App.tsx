@@ -64,7 +64,15 @@ function App() {
 
         <main className="mx-auto flex flex-col w-full max-w-6xl flex-1 items-center justify-center px-3 py-4 sm:px-5 sm:py-6">
 
+          <section className="mx-auto mt-3 max-w-4xl px-5 py-12 text-center">
+            <h1 className="font-main text-2xl font-bold text-white">
+              Diesel N' Steel Fare Calculator
+            </h1>
 
+            <p className="mx-auto mt-3 max-w-2xl font-main text-white/80">
+              Calculate estimated passenger fare with ease in Diesel N Steel. Select your route, starting point, destination, and passenger information to get your fare instantly.
+            </p>
+          </section>
           
 
           <div className="flex w-full flex-col items-stretch justify-center gap-4 rounded-md border border-border px-4 py-5 shadow-md sm:px-6 md:px-8">
@@ -172,15 +180,6 @@ function App() {
               </fieldset>
           </div>
           
-          <section className="mx-auto mt-3 max-w-4xl px-5 py-12 text-center">
-            <h1 className="font-main text-2xl font-bold text-white">
-              Diesel N' Steel Fare Calculator
-            </h1>
-
-            <p className="mx-auto mt-3 max-w-2xl font-main text-white/80">
-              Calculate estimated passenger fare with ease in Diesel N Steel. Select your route, starting point, destination, and passenger information to get your fare instantly.
-            </p>
-          </section>
 
           <section className="mx-auto mt-2 max-w-4xl px-5 py-12">
               <h2 className="font-main text-1xl font-semibold text-white">About the Diesel N Steel Fare Calculator</h2>
@@ -190,6 +189,30 @@ function App() {
               <p className="mt-4 font-main leading-7 text-white/80">
                   Select your route, starting point and destination, then enter the passenger information to get an accurate calculation of the estimated fare and the total amount of change.
               </p>
+          </section>
+
+          <section className="mx-auto mt-2 max-w-4xl px-5 py-12">
+            <h2 className="font-main text-1xl font-semibold text-white">How are fares calculated?</h2>
+
+            <p className="mt-4 font-main leading-7 text-white/80">
+              Fares are calculated based on the distance between the starting barangay and the ending barangay. For regular passengers, the minimum fare is ₱13, while for senior passengers, the minimum fare is ₱11. For the first 4 barangays, each passenger pays the minimum fare only. For every succeeding barangay, the fare increases by ₱2, then multiplied by the number of passengers. To get the change, the total fare is subtracted from the bill amount.
+            </p>
+
+            <p className="mt-4 font-main leading-7 text-white/80">
+              For example, when taking the Malolos-Bulakan route and picking up a passenger from <i>Barangay San Nicolas</i>, they may pay a bill of ₱100 to stop at <i>Barangay Panasahan</i>. The overall route is:
+            </p>
+
+            <p className="mt-4 font-main leading-7 text-white/80">
+              San Nicolas → Pitpitan → Mambog → Matimbo → <b>Panasahan</b>
+            </p>
+
+            <p className="mt-4 font-main leading-7 text-white/80">
+              Counting the initial Barangay, for the first 4 barangays, there is no increment. Only the minimum fare. So barangays <i>San Nicolas</i>, <i>Pitpitan</i>, <i>Mambog</i>, and <i>Matimbo</i> would only be charged the minimum fare of ₱13. For Panasahan, since it is past 4 barangays, the fare would be incremented by ₱2. So when calculating the fare, it would be ₱13 + ₱2 = <b>₱15</b>.
+            </p>
+
+            <p className="mt-4 font-main leading-7 text-white/80">
+              To get the change, simply subtract the total fare from the bill. In this case, ₱100 - ₱15 = <b>₱85</b> change.
+            </p>
           </section>
 
           <section className="mx-auto max-w-4xl p-5">
