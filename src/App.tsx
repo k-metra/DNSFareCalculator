@@ -217,6 +217,19 @@ function App() {
 
           <section className="mx-auto max-w-4xl p-5">
               <h2 className="font-main text-1xl font-semibold text-white">Available Routes</h2>
+
+                    <p className="mt-4 font-main leading-7 text-white/80">
+                      As of August 19, 2026, the following routes listed below are the ones currently available in Diesel N' Steel. <b>Malolos - Bulakan</b> is the most <i>profitable</i> route due to its distance and the number of passengers you could pick up, but its multiple stops can make fare calculation more complicated.
+                    </p>
+
+                    <p className="mt-4 font-main leading-7 text-white/80">
+                      For beginners, the most recommended route is <b>Guiguinto - Bulakan</b>, as it is the shortest route and has the least number of barangays, meaning all fares are the same.
+                    </p>
+
+                    <p className="mt-4 font-main leading-7 text-white/80">
+                      For a fair mix of distance and profitability, <b>Balagtas - Bulakan</b> is the recommended route. It is not too long, but has enough barangays to make profit in least amount of hours with a total of <b>5 stops</b>.
+                    </p>
+
               <div className="mt-6 grid gap-4 sm:grid-cols-2">
                     {routes .map((route) => (
                       <div
@@ -232,6 +245,22 @@ function App() {
                       </div>
                     ))}
               </div>
+          </section>
+
+          <section className="mx-auto max-w-4xl px-5 py-8">
+                    <h2 className="font-main text-1xl font-semibold text-white">About Diesel N Steel</h2>
+
+
+                    <p className="mt-4 font-main leading-7 text-white/80">
+                      Diesel N Steel is a Roblox game centered around the experience of a day-to-day jeepney driver in the Philippines in a Philippine setting. Players can operate jeepneys on different route, each with its own unique stops. The game boasts a highly intuitive customization system that allows players to modify their jeepneys with a variety of colors, designs, and accessories. Players mainly earn money by picking up passengers and collecting their fares, which can be used to upgrade their jeepney or purchase new ones. The game also features a dynamic day-night cycle, weather effects, and a variety of challenges that keep players engaged.
+                    </p>
+
+                    <p className="mt-4 font-main leading-7 text-white/80">
+                      Aside from fare collection, players also earn a money through a variety of different ways, such as in-game code redemptions, jeepney rentals, and conductor services. The game has a strong community of players who find different ways to maximize earnings throughout the game, with or without a jeepney.
+                    </p>
+
+                    <img className="my-5 mx-auto" src="https://tr.rbxcdn.com/180DAY-4123bd0ffb53d8df3d886e38fe9392cd/768/432/Image/Webp/noFilter" alt="Image of 3 in-game player-driven jeepneys from Diesel N' Steel "/>
+                    <img className="my-5 mx-auto" src="https://tr.rbxcdn.com/180DAY-8668091968c42c87e9a8ed4247567d5d/768/432/Image/Webp/noFilter" alt="Image of 4 jeepneys lined up in Diesel N' Steel" />
           </section>
 
           <section className="mx-auto max-w-4xl px-5 py-8">
