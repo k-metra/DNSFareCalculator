@@ -36,3 +36,14 @@ export function saveRecentCalculation({ route, startingPoint, endingPoint, passe
 
     localStorage.setItem(STORAGE_KEY, JSON.stringify(limited));
 }
+
+export function getRecentCalculations() {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    const calculations: RecentCalculation[] = stored ? JSON.parse(stored) : [];
+
+    return calculations;
+}
+
+export function clearRecentCalculations() {
+    localStorage.removeItem(STORAGE_KEY);
+}
