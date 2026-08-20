@@ -1,5 +1,4 @@
 import formatElapsedTime from "@utils/formatElapsedTime";
-import type { RecentCalculation } from "@utils/recentCalculations";
 import { routes } from "../data/routes";
 import { motion, AnimatePresence } from "motion/react";
 
