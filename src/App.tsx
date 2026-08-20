@@ -7,6 +7,8 @@ import calculateFare from '@utils/calculateFare.ts';
 import { useSearchParams } from 'react-router-dom';
 
 import { type PassengerType } from "./utils/types";
+import RecentCalculationsTab from './components/recentCalculationsTab.tsx';
+import { clearRecentCalculations, getRecentCalculations, saveRecentCalculation, type RecentCalculation } from './utils/recentCalculations.ts';
 
 function App() {
 
@@ -18,6 +20,8 @@ function App() {
   const numberOfPassengers = searchParams.get("passengers") ?? undefined;
   const passengerType = searchParams.get("type") ?? undefined;
   const bill = searchParams.get("bill") ?? undefined;
+
+  const [recentCalculations, setRecentCalculations] = useState<RecentCalculation[]>();
 
   const [totalFare, setTotalFare] = useState<string>();
   const [farePerPerson, setFarePerPerson] = useState<string>();
@@ -63,6 +67,41 @@ function App() {
 
   }, [selectedRoute, selectedStartingPoint, numberOfPassengers, selectedEndingPoint, passengerType, bill]);
 
+  useEffect(() => {
+    const calculations = getRecentCalculations();
+    setRecentCalculations(calculations);
+  }, []);
+
+  useEffect(() => {
+    const allInputsAreComplete = selectedRoute && selectedStartingPoint && selectedEndingPoint && numberOfPassengers && passengerType && bill;
+    
+    if (!allInputsAreComplete) return;
+
+ 
+    const timer = setTimeout(() => {
+      const newCalculation: RecentCalculation = {
+        route: selectedRoute,
+        startingPoint: selectedStartingPoint,
+        endingPoint: selectedEndingPoint,
+        passengerAmount: numberOfPassengers,
+        type: passengerType,
+        bill: bill,
+        farePerPerson: farePerPerson!,
+        totalFare: totalFare!,
+        timestamp: Date.now()
+      };
+
+      saveRecentCalculation(newCalculation);
+
+      setRecentCalculations(getRecentCalculations());
+    }, 3000);
+    
+
+    return () => clearTimeout(timer);
+  }, [
+    selectedRoute, selectedStartingPoint, selectedEndingPoint, numberOfPassengers, passengerType, bill
+  ]);
+
   return (
     <>
       <div className="min-h-screen bg-background">
@@ -79,7 +118,6 @@ function App() {
               Calculate estimated passenger fare with ease in Diesel N Steel. Select your route, starting point, destination, and passenger information to get your fare instantly.
             </p>
           </section>
-          
 
           <div className="flex w-full flex-col items-stretch justify-center gap-4 rounded-md border border-border px-4 py-5 shadow-md sm:px-6 md:px-8">
               <h2 className="text-lg font-main font-semibold text-white">Route Info</h2>
@@ -191,6 +229,23 @@ function App() {
                 />
               </fieldset>
           </div>
+
+          <RecentCalculationsTab 
+
+                    calculations={recentCalculations ?? []}
+                    onSelect={(calculation) => {
+                      handleChange("route", calculation.route);
+                      handleChange("start", calculation.startingPoint);
+                      handleChange("end", calculation.endingPoint);
+                      handleChange("passengers", String(calculation.passengerAmount));
+                      handleChange("type", calculation.type);
+                      handleChange("bill", calculation.bill);
+                    }}
+                    onClear={() => {
+                      clearRecentCalculations();
+                      setRecentCalculations([]);
+                    }}
+          />
           
 
           <section className="mx-auto mt-2 max-w-4xl px-5 py-12">
