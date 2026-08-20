@@ -131,11 +131,11 @@ function App() {
                       name="route"
                       value={selectedRoute}
                       options={routeOptions}
-                      onChange={() => {
+                      onChange={(name, value) => {
                         const newParams = new URLSearchParams(searchParams);
                         newParams.delete("start");
                         newParams.delete("end");
-                        newParams.set("route", selectedRoute ?? "");
+                        newParams.set("route", value!);
                         setSearchParams(newParams);
                       }}    
                   />
