@@ -1,23 +1,34 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import Header from './components/header.tsx';
 import Dropdown from './components/dropdown.tsx';
 import { routes } from './data/routes.ts';
 import Value from './components/value.tsx';
 import calculateFare from '@utils/calculateFare.ts';
+import { useSearchParams } from 'react-router-dom';
 
 import { type PassengerType } from "./utils/types";
 
 function App() {
-  const [selectedRoute, setSelectedRoute] = useState<string>();
-  const [selectedStartingPoint, setSelectedStartingPoint] = useState<string>();
-  const [selectedEndingPoint, setSelectedEndingPoint] = useState<string>();
-  const [numberOfPassengers, setNumberOfPassengers] = useState<string>();
-  const [passengerType, setPassengerType] = useState("regular");
-  const [bill, setBill] = useState<string>();
+
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const selectedRoute = searchParams.get("route") ?? undefined;
+  const selectedStartingPoint = searchParams.get("start") ?? undefined;
+  const selectedEndingPoint = searchParams.get("end") ?? undefined;
+  const numberOfPassengers = searchParams.get("passengers") ?? undefined;
+  const passengerType = searchParams.get("type") ?? undefined;
+  const bill = searchParams.get("bill") ?? undefined;
 
   const [totalFare, setTotalFare] = useState<string>();
   const [farePerPerson, setFarePerPerson] = useState<string>();
   const [change, setChange] = useState<string>();
+
+  const handleChange = useCallback((key: string, value: string | undefined) => {
+    const newSearchParams = new URLSearchParams(searchParams);
+
+    newSearchParams.set(key, value ?? "");
+    setSearchParams(newSearchParams);
+  }, [searchParams]);
 
   const routeOptions = useMemo(() => {
     return routes.map((route) => ({
@@ -31,11 +42,6 @@ function App() {
 
     return (routes.find((route) => route.id === selectedRoute)?.stops.map((stop) => ({ value: stop.id, label: stop.name }))) ?? [];
   }, [selectedRoute]);
-
-  useEffect(() => {
-    setSelectedEndingPoint("");
-    setSelectedStartingPoint("");
-  }, [selectedRoute])
 
   useEffect(() => {
     if (!selectedRoute || !selectedStartingPoint || !selectedEndingPoint || !passengerType || !bill) {
@@ -82,29 +88,32 @@ function App() {
                 <div className="w-full md:flex-1">
                   <Dropdown
                       label="Route Name"
+                      name="route"
                       value={selectedRoute}
                       options={routeOptions}
-                      onChange={setSelectedRoute}    
+                      onChange={handleChange}    
                   />
                 </div>
 
                 <div className="w-full md:flex-1">
                   <Dropdown
                     label="Start"
+                    name="start"
                     value={selectedStartingPoint}
                     options={stops}
                     disabled={selectedRoute == null}
-                    onChange={setSelectedStartingPoint}
+                    onChange={handleChange}
                   />
                 </div>
 
                 <div className="w-full md:flex-1">
                   <Dropdown 
+                    name="end"
                     label="End"
                     value={selectedEndingPoint}
                     options={stops}
                     disabled={selectedRoute == null}
-                    onChange={setSelectedEndingPoint}
+                    onChange={handleChange}
                   />
                 </div>
               </fieldset>
@@ -115,6 +124,7 @@ function App() {
 
                 <div className="w-full md:flex-1">
                   <Dropdown
+                      name="passengers"
                       label="No. of Passengers"
                       value={numberOfPassengers}
                       options={
@@ -126,12 +136,13 @@ function App() {
                           {value: "5", label: "5"}
                         ]
                       }
-                      onChange={(value) => setNumberOfPassengers(value)}
+                      onChange={handleChange}
                   />
                 </div>
 
                 <div className="w-full md:flex-1">
                   <Dropdown
+                    name="type"
                     label="Passenger Type"
                     options={
                       [
@@ -140,12 +151,13 @@ function App() {
                       ]
                     }
                     value={passengerType}
-                    onChange={(value) => setPassengerType(value)}
+                    onChange={handleChange}
                   />
                 </div>
 
                 <div className="w-full md:flex-1">
                   <Dropdown
+                    name="bill"
                     label="Bill"
                     options={
                       [
@@ -155,7 +167,7 @@ function App() {
                       ]
                     }
                     value={bill}
-                    onChange={(value) => setBill(value)}
+                    onChange={handleChange}
                   />
                 </div>
               </fieldset>
