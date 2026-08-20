@@ -13,7 +13,7 @@ type CalculationCardProps = {
     farePerPerson: number | string;
     totalFare: number | string;
     timestamp: number;
-    onClick?: (calculation: RecentCalculation) => void;
+    onClick: () => void;
 }
 
 export default function CalculationCard({
@@ -32,21 +32,7 @@ export default function CalculationCard({
     return (
         <>
             <motion.button initial="initial" whileHover="hover" onClick={() => {
-                if (onClick) {
-                    onClick(
-                        {
-                            startingPoint: startingPoint,
-                            endingPoint: endingPoint,
-                            route: routeId,
-                            passengerAmount: passengerAmount,
-                            type: type,
-                            bill: bill,
-                            farePerPerson: farePerPerson,
-                            totalFare: totalFare,
-                            timestamp: timestamp
-                        } as RecentCalculation
-                    )
-                }
+                onClick();
             }} className="relative mt-4 w-full min-h-14 px-4 py-2 border border-border rounded-md bg-secondary/15 cursor-pointer hover:bg-secondary/20 transition-colors">
                 <div className="flex justify-between items-center w-full h-full">
                     <span className="font-main font-semibold text-white text-lg">{startingPointName} →  {endingPointName}</span>

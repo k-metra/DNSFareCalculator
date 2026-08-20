@@ -44,7 +44,7 @@ export default function RecentCalculationsTab({ calculations, onSelect, onClear 
                              farePerPerson={calculation.farePerPerson}
                              totalFare={calculation.totalFare}
                              timestamp={calculation.timestamp}
-                             onClick={onSelect}
+                             onClick={() => onSelect(calculation)}
                          />
                      ))}
                 </div>
