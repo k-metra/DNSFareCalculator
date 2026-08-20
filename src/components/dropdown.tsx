@@ -6,12 +6,13 @@ import { type option } from '@utils/types';
 export type DropdownProps = {
      options: option[];
      value?: string
-     onChange: (value: string) => void;
+     onChange: (key: string, value?: string) => void;
      label: string;
+     name: string;
      disabled?: boolean;
 }
 
-export default function Dropdown({ label, value, options, onChange, disabled = false }: DropdownProps ) {
+export default function Dropdown({ label, value, options, name, onChange, disabled = false }: DropdownProps ) {
     const [open, setOpen] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -80,7 +81,7 @@ export default function Dropdown({ label, value, options, onChange, disabled = f
                                         key={option.label}
                                         type="button"
                                         onClick={() => {
-                                            onChange(option.value);
+                                            onChange(name, option.value);
                                             setOpen(false);
                                         }}
                                         className="font-main font-medium w-full px-4 py-3 text-left text-white hover:bg-white/10 transition-colors cursor-pointer"
