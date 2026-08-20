@@ -236,12 +236,18 @@ function App() {
 
                     calculations={recentCalculations ?? []}
                     onSelect={(calculation) => {
-                      handleChange("route", calculation.route);
-                      handleChange("start", calculation.startingPoint);
-                      handleChange("end", calculation.endingPoint);
-                      handleChange("passengers", String(calculation.passengerAmount));
-                      handleChange("type", calculation.type);
-                      handleChange("bill", calculation.bill);
+
+                      const newSearchParams = new URLSearchParams(searchParams);
+
+                      newSearchParams.set("route", calculation.route);
+                      newSearchParams.set("start", calculation.startingPoint);
+                      newSearchParams.set("end", calculation.endingPoint);
+                      newSearchParams.set("passengers", String(calculation.passengerAmount));
+                      newSearchParams.set("type", calculation.type);
+                      newSearchParams.set("bill", String(calculation.bill));
+
+                      setSearchParams(newSearchParams);
+            
                     }}
                     onClear={() => {
                       clearRecentCalculations();
