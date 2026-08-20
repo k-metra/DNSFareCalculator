@@ -79,6 +79,8 @@ function App() {
 
  
     const timer = setTimeout(() => {
+      const result = calculateFare(passengerType as PassengerType, Number(numberOfPassengers)!, Number(bill)!, routes.find((route) => route.id === selectedRoute)?.stops.findIndex((stop) => stop.id === selectedStartingPoint)!, routes.find((route) => route.id === selectedRoute)?.stops.findIndex((stop) => stop.id === selectedEndingPoint)!);
+
       const newCalculation: RecentCalculation = {
         route: selectedRoute,
         startingPoint: selectedStartingPoint,
@@ -86,8 +88,8 @@ function App() {
         passengerAmount: numberOfPassengers,
         type: passengerType,
         bill: bill,
-        farePerPerson: farePerPerson!,
-        totalFare: totalFare!,
+        farePerPerson: result.farePerPerson,
+        totalFare: result.totalFare,
         timestamp: Date.now()
       };
 
